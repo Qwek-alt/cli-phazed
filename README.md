@@ -1,5 +1,5 @@
 # python-phazed-player
-> Foundations in Computing Project 2 Question 5
+> Foundations in Computing (COMP1001) 2021 Semester 1 Project 2 Question 5
 * plays a card game called 'Phazed', which is based on Phase 10 and rummy
 
 * Given the following arguments:
