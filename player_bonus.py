@@ -4,8 +4,11 @@
 # -- 'val' means 'value'
 # -- 'freq' means 'frequency'
 
+# IMPORTS AND CONSTANTS
+##############################################################################
 from collections import defaultdict as dd
 from itertools import combinations
+
 VAL, SUIT, MIN_NATURAL, MAX_WILDS, MAX_RUN_LEN = 0, 1, 2, 8, 12
 RUN_ORDER = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', '2', 
              '', '']
@@ -21,7 +24,7 @@ ACC_TOTALS = [34, 55, 68, 76, 81, 84, 86, 87, 88]
 PHASE_GROUPS = {1: [[1], [1]], 2: [[2]], 3: [[6], [6]], 4: [[3], [3]], 
                 5: [[4]], 6: [[6, 7], [6, 7]], 7: [[5], [3]]}
 
-# HELPER FUNCTIONS FROM QUESTION 1, 2 OR 3
+# HELPER FUNCTIONS TO FIND GROUPS
 ##############################################################################
 def colour_check(group, aces_check=False):
     '''
@@ -1030,6 +1033,8 @@ FIND_PHASE_FUNC = {1: find_set_phase, 2: find_set_phase, 3: find_acc_phase,
               4: find_set_phase, 5: find_run_phase, 6: find_acc_phase,
               7: find_phase_7}
 
+# MAIN FUNCTION
+##############################################################################
 def phazed_bonus(player_id, table, turn_history, phase_status, hand, 
     discard):
     '''Return a 2-tuple describing the single play your player wishes to make, 
