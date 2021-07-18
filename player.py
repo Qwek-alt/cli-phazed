@@ -6,7 +6,7 @@
 
 from collections import defaultdict as dd
 from itertools import combinations
-from os import path
+
 VAL, SUIT, MIN_NATURAL, MAX_WILDS, MAX_RUN_LEN = 0, 1, 2, 8, 12
 RUN_ORDER = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', '2', 
              '', '']
@@ -22,7 +22,7 @@ ACC_TOTALS = [34, 55, 68, 76, 81, 84, 86, 87, 88]
 PHASE_GROUPS = {1: [[1], [1]], 2: [[2]], 3: [[6], [6]], 4: [[3], [3]], 
                 5: [[4]], 6: [[6, 7], [6, 7]], 7: [[5], [3]]}
 
-# HELPER FUNCTIONS FROM QUESTION 1, 2 OR 3
+# HELPER FUNCTIONS TO FIND GROUPS
 ##############################################################################
 def colour_check(group, aces_check=False):
     '''
@@ -947,7 +947,6 @@ def play_4(table, hand, ranking=False):
 
     # no table plays
     return False
-
 
 
 FIND_PHASE_FUNC = {1: find_set_phase, 2: find_set_phase, 3: find_acc_phase, 
