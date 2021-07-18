@@ -1,11 +1,9 @@
-# COMP10001 Foundations in Computing Project 2 Question 6
+# COMP10001 Foundations in Computing Project 2 Question 5
 # ABRREVIATIONS:
 # -- 'acc' means 'accumulation'
 # -- 'val' means 'value'
 # -- 'freq' means 'frequency'
 
-# IMPORTS AND CONSTANTS
-##############################################################################
 from collections import defaultdict as dd
 from itertools import combinations
 
@@ -17,8 +15,8 @@ WILDS = ['AC', 'AD', 'AH', 'AS']
 ACC_VALUES = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 
               '0': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 1}
 SCORE_VALUES = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
-                '0': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 25, 'Z': 15}
-PLAY_ORDER = {1: [5, 6, None], 2: [5, 6, None], 3: [1, 2], 4: [1, 2, 3, 4], 
+                '0': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 25}
+PLAY_ORDER = {1: [5, None], 2: [5, None], 3: [1, 2], 4: [1, 2, 3, 4], 
               5: [1, 2, 3, 4]}  # {play_type: [valid prev_play_types], ...}
 ACC_TOTALS = [34, 55, 68, 76, 81, 84, 86, 87, 88]
 PHASE_GROUPS = {1: [[1], [1]], 2: [[2]], 3: [[6], [6]], 4: [[3], [3]], 
@@ -702,7 +700,7 @@ def find_phase_7(hand, phase_type, ranking=True):
             phase_complete = None
 
         # no complete groups found
-        elif func_1 == find_set_group and phase_list == [[],[]]:
+        elif func_1 == find_set_group and phase_list == [[], []]:
             # add partial group to phase_list
             phase_list[0] = func_1_group
 
@@ -716,7 +714,6 @@ def find_phase_7(hand, phase_type, ranking=True):
 
     return remainder, phase_list, phase_complete
 
-
 # OTHER HELPER FUNCTIONS
 ##############################################################################
 def flatten(list_2d):
@@ -727,7 +724,7 @@ def flatten(list_2d):
             list.append(card)
     return list
 
-def rank_squared(hand, phase_type, phase_on_table, table, player_id):
+def rank(hand, phase_type, phase_on_table, table, player_id):
     '''
     Ranks the hand according to a specific phase.
     Arguments:
@@ -809,22 +806,13 @@ def rank_squared(hand, phase_type, phase_on_table, table, player_id):
     # sort from smallest to largest score value
     ulti_remainder.sort(key=lambda c: SCORE_VALUES[c[VAL]])
 
-    # accumulation phase not found/incomplete
-    if phase_type in [3, 6] and not phase_complete:
-        acc_values = [ACC_VALUES[card[VAL]] for card in ulti_remainder]
-
-        # too many small numbers
-        # sort by largest to smallest accumulation values
-        if sum(acc_values) < ACC_TOTALS[0]:
-            ulti_remainder.sort(key=lambda c: -ACC_VALUES[c[VAL]])
-
     # add ultimate remainders to `ranks_dict`
     for card in ulti_remainder:
         ranks_dict[card].append(3)
 
     ranked_card_list += ulti_remainder
 
-    return ranks_dict, ranked_card_list, phase_complete, ulti_remainder
+    return ranks_dict, ranked_card_list
 
 def play_4(table, hand, ranking=False):
     if ranking:
@@ -870,6 +858,7 @@ def play_4(table, hand, ranking=False):
                                         not colour_check(new_group_content,
                                          True):
                                         continue
+
                                     card = comb[0]
 
                                     if ranking: 
@@ -959,127 +948,38 @@ def play_4(table, hand, ranking=False):
     # no table plays
     return False
 
-def rank(hand, phase_types, phase_on_table, table, player_id, ranking=True):
-    '''
-    Calls rank_squared - chooses which phase to play
-    '''
-
-    phase_list = []
-    if ranking:
-        optimal = [False, {}, [], hand]
-    else:
-        optimal = [False, 0, [], hand]
-    
-    # all phases complete
-    if not phase_types:
-        phase_type = 1
-        ranks_dict, ranked_card_list, phase_complete, ulti_remainder, \
-            = rank_squared(hand, phase_type, phase_on_table, table[:], 
-            player_id)
-
-        # ranking for potential play
-        if phase_on_table:
-            optimal[0] = phase_complete
-            optimal[1] = ranks_dict
-            optimal[2] = ranked_card_list
-            optimal[3] = ulti_remainder
-
-
-    for phase_type in phase_types:
-        ranks_dict, ranked_card_list, phase_complete, ulti_remainder, \
-            = rank_squared(hand[:], phase_type, phase_on_table, table[:], 
-            player_id)
-
-        # ranking for potential play
-        if phase_on_table:
-            optimal[0] = phase_complete
-            optimal[1] = ranks_dict
-            optimal[2] = ranked_card_list
-            optimal[3] = ulti_remainder
-            break
-        
-        order = [True, None, False]
-        # finding/playing optimal phase
-        # -- ultimate remainder less than optimal ultimate remainder
-        order_optimal = order.index(optimal[0])
-        order_curr = order.index(phase_complete)
-        if order_curr < order_optimal or (order_curr == order_optimal 
-            and (len(ulti_remainder) < len(optimal[-1]))):
-            if ranking: 
-                optimal[0] = phase_complete
-                optimal[1] = ranks_dict
-                optimal[2] = ranked_card_list
-                optimal[3] = ulti_remainder
-            else:
-                optimal[0] = phase_complete
-                optimal[1] = phase_type
-                _, phase_list, phase_complete = \
-                    FIND_PHASE_FUNC[phase_type](hand, phase_type, False)
-                optimal[2] = phase_list
-                optimal[3] = ulti_remainder
-        
-    phase_complete = optimal[0]
-    if ranking:
-        ranks_dict, ranked_card_list = optimal[1], optimal[2]
-
-        return phase_complete, ranks_dict, ranked_card_list
-    else:
-        phase_type, phase_list = optimal[1], optimal[2]
-
-        return phase_complete, phase_type, phase_list
-
 
 FIND_PHASE_FUNC = {1: find_set_phase, 2: find_set_phase, 3: find_acc_phase, 
               4: find_set_phase, 5: find_run_phase, 6: find_acc_phase,
-              7: find_phase_7}
+              7: find_phase_7}  # {phase: function to find that phase}
 
 # MAIN FUNCTION
 ##############################################################################
-def phazed_bonus(player_id, table, turn_history, phase_status, hand, 
+def phazed_play(player_id, table, turn_history, phase_status, hand, 
     discard):
     '''Return a 2-tuple describing the single play your player wishes to make, 
     made up of a play ID and associated play content'''
-    # preventing magic numbers and assigning items to variables
     if turn_history:
-        # prevent magic numbers when indexing (..._i means index variable)
-        prev_turn_i, prev_plays_i = -1, -1,
-        prev_play_i, prev_player_id_i = -1, 0
-        
+        # prevent magic numbers when indexing
+        prev_turn_i, prev_plays_i, prev_play_i = -1, -1, -1
         prev_play = turn_history[prev_turn_i][prev_plays_i][prev_play_i]
         (prev_play_type, _) = prev_play
-        prev_player_id = turn_history[prev_turn_i][prev_player_id_i]
     else:
-        prev_play_type, prev_player_id = None, None
+        prev_play_type = None
 
-    # valid phase types to be played
-    phase_types = []
-    for i in range(len(phase_status[player_id])):
-        if not phase_status[player_id][i]:  # phase not yet found
-            phase_types.append(i + 1)
-
+    phase_type = phase_status[player_id] + 1
     phase_on_table = False if table[player_id] in [(None, []), [None, []]] \
                             else True
-
-    # remove jokers
-    joker_flag = False
-    for card in hand[:]:
-        if 'ZZ' == card:
-            joker_flag = True
-            hand.remove('ZZ')
 
     # PLAY TYPE 1 OR 2 (PICK-UP PLAY)
     # -- rank cards to check if discard is useful
     if prev_play_type in PLAY_ORDER[1]:
-        # Discard is joker - pick up from deck
-        if discard == 'ZZ':
-            return (1, None)
-
         hand.insert(0, discard)
 
         # rank potential hand (hand with discard)
-        _, ranks_dict, ranked_card_list = \
-            rank(hand, phase_types, phase_on_table, table, player_id)
- 
+        ranks_dict, ranked_card_list = \
+            rank(hand, phase_type, phase_on_table, table, player_id)
+        
         # Check if dicard if useful
         # phase not found yet; discard is considered 'not useful' if:
         # -- it is the worst ranked card in the rank list
@@ -1099,10 +999,10 @@ def phazed_bonus(player_id, table, turn_history, phase_status, hand,
     
     # PLAY TYPE 3 (PHASE PLAY)
     elif not phase_on_table and prev_play_type in PLAY_ORDER[3]:
+        _, phase_list, phase_complete = FIND_PHASE_FUNC[phase_type](hand,
+        phase_type, False)
 
-        # rank hand
-        phase_complete, phase_type, phase_list = \
-            rank(hand, phase_types, phase_on_table, table, player_id, False)
+        # complete phase is found in hand - play the phase
         if phase_complete:
             return (3, (phase_type, phase_list))
         # no phase plays found in hand -go to-> PLAY TYPE 5 (discard)
@@ -1114,14 +1014,10 @@ def phazed_bonus(player_id, table, turn_history, phase_status, hand,
             return play
         # no table play is found -go to-> PLAY TYPE 5 (discard)
 
-    # PLAY TYPE 5/6 (DISCARD)
+    # PLAY TYPE 5 (DISCARD)
     # -- rank cards
     # -- discard leasts wanted card (lowest rank)
-    _, ranks_dict, ranked_card_list = \
-        rank(hand, phase_types, phase_on_table, table, player_id)
-    
-    if joker_flag:
-        next_player_id = player_id + 1 if player_id in [0, 1, 2] else 0
-        return (6, next_player_id)
+    ranks_dict, ranked_card_list = \
+        rank(hand, phase_type, phase_on_table, table, player_id)
 
     return (5, ranked_card_list[-1])

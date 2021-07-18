@@ -1,0 +1,18 @@
+[[package]]
+name = "xintool"
+version = "0.0.7"
+description = "python opensource tools"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "1ddb6048e93fef5db9348be9289bd8226d0e9679ca05f4f2ed2356c74f2587b9"
+
+[metadata.files]
+xintool = [
+    {file = "xintool-0.0.7-py3-none-any.whl", hash = "sha256:113bf6cc8787c1848300b6fcb05f8dd77d67942ec307827f34fd7876f3873edc"},
+    {file = "xintool-0.0.7.tar.gz", hash = "sha256:0dae1e082a01c4a3bc6899999fec5391cb6407c56fa828e048c2fabd70d050c1"},
+]
