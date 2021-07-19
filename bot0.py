@@ -957,6 +957,7 @@ FIND_PHASE_FUNC = {1: find_set_phase, 2: find_set_phase, 3: find_acc_phase,
 ##############################################################################
 def phazed_play(player_id, table, turn_history, phase_status, hand, 
     discard):
+
     '''Return a 2-tuple describing the single play your player wishes to make, 
     made up of a play ID and associated play content'''
     if turn_history:
