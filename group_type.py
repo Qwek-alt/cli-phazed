@@ -143,3 +143,4 @@ def phazed_group_type(group):
         result_list.append(7)
     
     return sorted(result_list)
+

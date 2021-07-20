@@ -53,3 +53,4 @@ def phazed_phase_type(phase):
             result_list.append(5)
 
     return sorted(result_list)
+
