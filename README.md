@@ -49,7 +49,7 @@
 
 ## How to Add A Bot
 1. Create `bot1.py` in same folder as where `game.py` is located
-2. Uncomment the following lines (marked with ☚)
+2. Uncomment the following lines in `game.py` (marked with ☚)
     ```python
     # Import Bots
     from bot0 import phazed_play as bot0
