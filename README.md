@@ -2,8 +2,11 @@
 
 > play a game of Phazed with a bot or with other players or watch bots play with each other
 
-## [Live Demo]()
+## [Live Demo](https://replit.com/@unixc/cli-phazed?embed=1&output=1#.replit)
 > hosted on repl.it
+
+![](demo.gif)
+
 
 ## About Phazed, the game
 * A card game based off games like [Phase 10](https://en.wikipedia.org/wiki/Phase_10) and [Rummy](https://en.wikipedia.org/wiki/Rummy)
@@ -68,7 +71,3 @@
 * additional bots can be added by naming them `bot2.py` and `bot3.py` and uncommenting the appropriate lines
 * bonus bots can be addded with `bonusbot#`
 * a maximum of 4 bots can be added
-
-<details>
-<sub>`player.py` placed 11th out of 438 players submitted to a subject-cohort-wide tournament and `player-bonus.py` placed 2nd out of 266 other players submitted to a bonus tournament. </sub>
-</details>
