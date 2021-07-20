@@ -1,44 +1,74 @@
-# Phazed Game and Player
+<h1 align="center"> Phazed Game and Player </h1>
 
-* plays a card game called 'Phazed'
+> play a game of Phazed with a bot or with other players or watch bots play with each other
+
 ## [Live Demo]()
-* hosted on repl.it
+> hosted on repl.it
 
 ## About Phazed, the game
 * A card game based off games like [Phase 10](https://en.wikipedia.org/wiki/Phase_10) and [Rummy](https://en.wikipedia.org/wiki/Rummy)
 * Details about the game can be found in [`gamespec.pdf`](gamespec.pdf)
 
 ## Installation
-> if you do not intend on ammending the code, you might want to use the [Live Demo](#live-demo) instead
+> if you do not intend on ammending the code or adding additional players, you might want to use the [Live Demo](#live-demo) instead
+
+1. Make sure Python is installed on your system: [Download Python]( https://www.python.org/downloads/)
+2. Clone the repository or Download ZIP
+    ```shell
+    git clone https://github.com/Qwek-alt/cli-phazed.git
+    ```
+3. Run `game.py` to play the game
+    ```shell
+    python game.py
+    ```
 
 ## Playing the Game with `game.py`
 * Default Settings
+  * Normal Game
+  * 4 players
+    * 1 Human player and 3 Bot players
+  * Automatic Card Handling
 * Custom Settings
   > can be changed by entering `No` when asked ` → Use default settings? [Yes/No]:`
-  * Normal/Bonus game
+  * Normal/Bonus game (to be added)
   * Number of Players (2 to 4 players)
+    * consisting of either Human of Bot players
   * Automatic Card Handling
-* inputs are not case sensative
+* Inputs
+  * generally not case sensative (except for Bot names)
+  * `[Yes/No]` questions can be replied with `y` or `n`
 
-## Normal Bot 0, `normalbot0.py`
-### Arguments
-|Argument/Param|Description|
-|---|--|
-|`player_id`|integer between 0 and 3 inclusive, indicating the ID of the player attempting the play|
-|`table`|4-element list representing the table; which has the phase plays for each of Players 0-3|
-|`turn_history`|list of all turns in the hand to date|
-|`phase_status`|a 4-element list indicating the phases that each of Players 0-3|
-|`hand`|list of cards in the current player's hand|
-|`discard`|the top card of the discard stack|
-* Returns:
-  * a 2-tuple consisting of the type of play and the cards being played
+## How to Add A Bot
+1. Create `bot1.py` in same folder as where `game.py` is located
+2. Uncomment the following lines (marked with ☚)
+    ```python
+    # Import Bots
+    from bot0 import phazed_play as bot0
+    # from bot1 import phazed_play as bot1  ☚
+    # from bot2 import phazed_play as bot2
+    # from bot3 import phazed_play as bot3
 
-## Bonus Bot 0, `bonusbot0.py`
+    # Import Bonus Bots
+    from bonusbot0 import phazed_bonus as bonusbot0
+    # from bonusbot1 import phazed_bonus as bonusbot1  ☚
+    # from bonusbot2 import phazed_bonus as bonusbot2
+    # from bonusbot3 import phazed_bonus as bonusbot3
 
-## How to Add Bots
-* Normal Bots have to be named `normalbot#`
-    and Bonus Bots have to be named `bonusbot#` where # is a number betweeen
-    0 and 3 inclusive as there can only be a maximum of 4 bots playing at a 
-    time.
+    BOTS = {
+        "Bot0": bot0,
+        # "Bot1": bot1,  ☚
+        # "Bot2": bot2,
+        # "Bot3": bot3,
+        "BonusBot0": bonusbot0 #,
+        # "BonusBot1": bonusbot1,
+        # "BonusBot2": bonusbot2,
+        # "BonusBot3": bonusbot3
+    }
+    ```
+* additional bots can be added by naming them `bot2.py` and `bot3.py` and uncommenting the appropriate lines
+* bonus bots can be addded with `bonusbot#`
+* a maximum of 4 bots can be added
 
+<details>
 <sub>`player.py` placed 11th out of 438 players submitted to a subject-cohort-wide tournament and `player-bonus.py` placed 2nd out of 266 other players submitted to a bonus tournament. </sub>
+</details>
