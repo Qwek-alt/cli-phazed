@@ -7,10 +7,16 @@
 
 ![](demo.gif)
 
+## Technologies Used
+* Python
+* Python Standard Libraries:
+  * collections (defaultdict)
+  * itertools
+  * random
 
 ## About Phazed, the game
 * A card game based off games like [Phase 10](https://en.wikipedia.org/wiki/Phase_10) and [Rummy](https://en.wikipedia.org/wiki/Rummy)
-* Details about the game can be found in [`gamespec.pdf`](gamespec.pdf)
+* Details about the game and how to play it can be found in [`gamespec.pdf`](gamespec.pdf)
 
 ## Installation
 > if you do not intend on ammending the code or adding additional players, you might want to use the [Live Demo](#live-demo) instead
