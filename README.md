@@ -6,7 +6,7 @@
 
 > hosted on repl.it
 
-![](screenshots/demo.gif)
+![](demo/demo.gif)
 
 ## Technologies Used
 * Python
