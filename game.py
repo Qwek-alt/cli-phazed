@@ -22,21 +22,21 @@ PLACING = {1: 'st', 2: 'nd', 3: 'rd'}
 from itertools import product
 import random
 
-from valid_play import phazed_is_valid_play
-from score import phazed_score
-from bot0 import rank
+from helper_functions.valid_play import phazed_is_valid_play
+from helper_functions.score import phazed_score
+from bots.bot0 import rank
 
 # Import Bots
-from bot0 import phazed_play as bot0
-# from bot1 import phazed_play as bot1
-# from bot2 import phazed_play as bot2
-# from bot3 import phazed_play as bot3
+from bots.bot0 import phazed_play as bot0
+# from bots.bot1 import phazed_play as bot1
+# from bots.bot2 import phazed_play as bot2
+# from bots.bot3 import phazed_play as bot3
 
 # Import Bonus Bots
-from bonusbot0 import phazed_bonus as bonusbot0
-# from bonusbot1 import phazed_bonus as bonusbot1
-# from bonusbot2 import phazed_bonus as bonusbot2
-# from bonusbot3 import phazed_bonus as bonusbot3
+from bonusbots.bonusbot0 import phazed_bonus as bonusbot0
+# from bonusbots.bonusbot1 import phazed_bonus as bonusbot1
+# from bonusbots.bonusbot2 import phazed_bonus as bonusbot2
+# from bonusbots.bonusbot3 import phazed_bonus as bonusbot3
 
 BOTS = {
     "Bot0": bot0,
@@ -98,18 +98,13 @@ def choice_input(question, choices, returnvalues):
             if reply in choices[i]:
                 return returnvalues[i]
 
-def card_input(question):
-    '''Promps user to enter a card input, returns a correctly formatted version
-    or prompts user again if invalid input is given.'''
-    reply = input(f"{question}")
-
 # MAIN GAME FUNCTION
 ##############################################################################
 def game(bonus, player_freq, handle, player_names, beginning):
     '''Main game loop - runs gameplay as described in gamespec.pdf'''
     if beginning:  # Game starting from the beginning
         # Set initial values
-        hand_num, total_turns = 0, 0
+        hand_num = 0
         phase_status = [0 for i in range(player_freq)]
         total_scores = [0 for i in range(player_freq)]
     else:  # 'Loading' and existing game; not starting from the beggining
@@ -195,7 +190,7 @@ def game(bonus, player_freq, handle, player_names, beginning):
 
                 while True: 
                     try: 
-                        player = input(f"→ Input play/bot[{'/'.join(list(BOTS.keys()))}]: ")
+                        player = input(f"→ Input a play or a bot to help you play [{'/'.join(list(BOTS.keys()))}]: ")
                         if player not in list(BOTS.keys()):
                             # Break down play format
                             play_content = player
@@ -266,7 +261,7 @@ def game(bonus, player_freq, handle, player_names, beginning):
                     print(f"Player {player_id} ({name}) played {play}"
                     + f" and picked up {card}")
                 else:
-                    card = card_input(f"→ Player {player_id} ({name}) played {play}"
+                    card = input(f"→ Player {player_id} ({name}) played {play}"
                     +" and picked up ")
             else:
                 print(f"Player {player_id} ({name}) played {play}")

@@ -1,4 +1,4 @@
-from group_type import phazed_group_type
+from helper_functions.group_type import phazed_group_type
 
 printing = False  # for debugging
 

@@ -1,5 +1,5 @@
-from phase_type import phazed_phase_type
-from group_type import colour_check, run_check
+from helper_functions.phase_type import phazed_phase_type
+from helper_functions.group_type import colour_check, run_check
 
 VAL, SUIT = 0, 1
 WILDS = ['AC', 'AD', 'AH', 'AS']

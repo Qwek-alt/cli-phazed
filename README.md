@@ -2,10 +2,11 @@
 
 > play a game of Phazed with a bot or with other players or watch bots play with each other
 
-## [Live Demo](https://replit.com/@unixc/cli-phazed?embed=1&output=1#.replit)
+<h2> <a href="https://replit.com/@unixc/cli-phazed?embed=1&output=1#.replit" target="_blank">Live Demo</a></h2>
+
 > hosted on repl.it
 
-![](demo.gif)
+![](screenshots/demo.gif)
 
 ## Technologies Used
 * Python
@@ -48,20 +49,20 @@
   * `[Yes/No]` questions can be replied with `y` or `n`
 
 ## How to Add A Bot
-1. Create `bot1.py` in same folder as where `game.py` is located
+1. Create `bot1.py` in same folder as where `bots`
 2. Uncomment the following lines in `game.py` (marked with ☚)
     ```python
     # Import Bots
-    from bot0 import phazed_play as bot0
-    # from bot1 import phazed_play as bot1  ☚
-    # from bot2 import phazed_play as bot2
-    # from bot3 import phazed_play as bot3
+    from bots.bot0 import phazed_play as bot0
+    # from bots.bot1 import phazed_play as bot1  ☚
+    # from bots.bot2 import phazed_play as bot2
+    # from bots.bot3 import phazed_play as bot3
 
     # Import Bonus Bots
-    from bonusbot0 import phazed_bonus as bonusbot0
-    # from bonusbot1 import phazed_bonus as bonusbot1  ☚
-    # from bonusbot2 import phazed_bonus as bonusbot2
-    # from bonusbot3 import phazed_bonus as bonusbot3
+    from bonusbots.bonusbot0 import phazed_bonus as bonusbot0
+    # from bonusbots.bonusbot1 import phazed_bonus as bonusbot1
+    # from bonusbots.bonusbot2 import phazed_bonus as bonusbot2
+    # from bonusbots.bonusbot3 import phazed_bonus as bonusbot3
 
     BOTS = {
         "Bot0": bot0,
@@ -75,5 +76,5 @@
     }
     ```
 * additional bots can be added by naming them `bot2.py` and `bot3.py` and uncommenting the appropriate lines
-* bonus bots can be addded with `bonusbot#`
+* bonus bots can be addded by naming them `bonusbot#.py`, where `#` is the bot number (from 0-4) and adding them in `bonusbots`
 * a maximum of 4 bots can be added
