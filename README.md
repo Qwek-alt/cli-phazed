@@ -4,7 +4,7 @@
 
 <h2> <a href="https://replit.com/@unixc/cli-phazed?embed=1&output=1#.replit" target="_blank">Live Demo</a></h2>
 
-> hosted on repl.it
+> hosted on repl.it (makes sure to press the green triangle at the bottom right corner to run the program)
 
 ![](demo/demo.gif)
 
