@@ -25,7 +25,7 @@
 1. Make sure Python is installed on your system: [Download Python]( https://www.python.org/downloads/)
 2. Clone the repository or Download ZIP
     ```shell
-    git clone https://github.com/Qwek-alt/cli-phazed.git
+    git clone https://github.com/chuahxinyu/cli-phazed.git
     ```
 3. Run `game.py` to play the game
     ```shell
